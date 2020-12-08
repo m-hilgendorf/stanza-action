@@ -1,0 +1,27 @@
+{
+  "name": "stanza-action",
+  "version": "1.0.0",
+  "description": "Github Action for the LB Stanza Programming Language",
+  "main": "action.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/m-hilgendorf/stanza-action.git"
+  },
+  "keywords": [
+    "github-actions",
+    "stanza"
+  ],
+  "author": "Mike Hilgendorf",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/m-hilgendorf/stanza-action/issues"
+  },
+  "homepage": "https://github.com/m-hilgendorf/stanza-action#readme",
+  "dependencies": {
+    "@actions/core": "^1.2.6",
+    "@actions/github": "^4.0.0"
+  }
+}

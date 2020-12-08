@@ -1,0 +1,42 @@
+name: Self Test
+on:
+  push:
+    paths-ignore: ['*.md', '*.json']
+jobs:
+  self-test:
+    runs-on: [ubuntu-latest, macos-latest]
+    name: Tests the action using itself
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    
+    - name: Provision
+      run: npm update
+    
+    - name: Install
+      uses: ./
+      with:
+        command: 'install'
+    
+    - name: Generate Hello World
+      run: echo 'println("hello, github!")' > test.stanza
+    
+    - name: Run Hello World
+      uses: ./
+      with:
+        command: run test.stanza
+  
+    - name: Generate Test 
+      run: |
+        echo '#use-added-syntax(tests)' > test.stanza
+        echo 'deftest my-test:'        >> test.stanza
+        echo '  println("Test Executed Successfully)" >> test.stanza
+
+    - name: Compile Tests
+      uses: ./
+      with:
+        command: compile-test test.stanza -o run-test
+      
+    - name: Run Tests
+      run: ./run-test
+      
