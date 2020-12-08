@@ -1,10 +1,11 @@
 name: Self Test
-on:
-  push:
-    paths-ignore: ['*.md', '*.json']
+on: [push]
 jobs:
   self-test:
-    runs-on: [ubuntu-latest, macos-latest]
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
     name: Tests the action using itself
     steps:
     - name: Checkout
@@ -15,6 +16,7 @@ jobs:
     
     - name: Install
       uses: ./
+      id: install
       with:
         command: 'install'
     
@@ -23,6 +25,7 @@ jobs:
     
     - name: Run Hello World
       uses: ./
+      id: run-hello
       with:
         command: run test.stanza
   
@@ -30,13 +33,14 @@ jobs:
       run: |
         echo '#use-added-syntax(tests)' > test.stanza
         echo 'deftest my-test:'        >> test.stanza
-        echo '  println("Test Executed Successfully)" >> test.stanza
+        echo '  println("Test Executed Successfully")' >> test.stanza
 
     - name: Compile Tests
       uses: ./
+      id: compile-test
       with:
         command: compile-test test.stanza -o run-test
       
     - name: Run Tests
+      id: run-tests
       run: ./run-test
-      

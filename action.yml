@@ -1,18 +1,17 @@
-name: LB Stanza
-description: Compiler and Runtime for LB Stanza
+name: Stanza
+description: 'Compiler and Runtime for LB Stanza'
 inputs:
   command: 
-    default: install
+    default: 'install'
     required: true
-    description: Command for the stanza compiler to run.
+    description: 'Command for the stanza compiler to run.'
   path:
-    default: null
     required: false
     description: 'Custom path to a stanza compiler'
   version:
     default: '0.13.80'
-    description: 'Use with \'install\' command to set the version of stanza'
+    description: 'Use with install command to set the version of stanza'
     required: false
 runs:
   using: 'node12'
-  main: action.js
+  main: 'action.js'
